@@ -80,7 +80,7 @@ class AgentService:
                 resp = await client.post(
                     f"{settings.ollama_base_url}/api/chat",
                     json={
-                        "model": "llama3", # Local model fallback (evaluator can configure this)
+                        "model": "phi3", # Changed to phi3 per your local setup
                         "messages": [
                             {"role": "system", "content": SYSTEM_PROMPT},
                             {"role": "user", "content": prompt}
