@@ -1,0 +1,338 @@
+:root {
+    --bg-main: #121212;
+    --bg-sidebar: #1e1e1e;
+    --bg-input: #1a1a1a;
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0a0;
+    --border-color: #333333;
+    --highlight: #2a2a2a;
+    
+    --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-chat: 'Merriweather', Georgia, serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Loading Overlay */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out;
+}
+
+#loading-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#loading-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* App Container */
+#app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar */
+#sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-logo {
+    width: 32px;
+    height: auto;
+    object-fit: contain;
+    margin-right: 12px;
+}
+
+.sidebar-title {
+    font-family: var(--font-chat);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.sidebar-nav {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.1s ease;
+    text-align: left;
+}
+
+.nav-item:hover {
+    background-color: var(--highlight);
+}
+
+.nav-item i {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5;
+}
+
+/* Main Content */
+#main-content {
+    flex-grow: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Chat Section */
+#chat-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#empty-state {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.empty-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 8px; /* Wrap the logo cleanly */
+}
+
+#empty-state h2 {
+    font-family: var(--font-chat);
+    font-weight: 400;
+    font-size: 2.2rem;
+    color: var(--text-primary);
+}
+
+#chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 10;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.user-message {
+    align-items: flex-end;
+}
+
+.assistant-message {
+    align-items: flex-start;
+}
+
+.message-content {
+    font-family: var(--font-chat);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    max-width: 85%;
+}
+
+.user-message .message-content {
+    background-color: var(--highlight);
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+
+.message-content a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Chat Input */
+.chat-input-container {
+    padding: 20px 40px 40px 40px;
+}
+
+#chat-form {
+    display: flex;
+    align-items: flex-end;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: none; /* Explicitly removed drop shadow */
+}
+
+#chat-input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    max-height: 200px;
+    padding: 4px;
+    line-height: 1.5;
+}
+
+#chat-input::placeholder {
+    color: var(--text-secondary);
+}
+
+#send-button {
+    background-color: var(--text-primary);
+    color: var(--bg-main);
+    border: none;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+#send-button i {
+    width: 18px;
+    height: 18px;
+}
+
+#send-button:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+}
+
+/* Artifact Section */
+#artifact-section {
+    width: 50%;
+    border-left: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+    display: flex;
+    flex-direction: column;
+}
+
+#artifact-section.hidden {
+    display: none;
+}
+
+.artifact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.artifact-header h3 {
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+#close-artifact {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.artifact-content {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+#artifact-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #ffffff; /* Artifacts usually look better on white, or adapt */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    #sidebar {
+        position: absolute;
+        transform: translateX(-100%);
+        z-index: 100;
+        height: 100%;
+    }
+    
+    #artifact-section {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 50;
+    }
+}

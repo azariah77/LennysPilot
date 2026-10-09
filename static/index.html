@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lenny Growth Assistant</title>
+    <!-- Google Fonts: Inter for UI, Merriweather for Chat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Full-screen Loading Overlay -->
+    <div id="loading-overlay">
+        <video id="loading-video" src="./opening.mp4" autoplay muted playsinline></video>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <img src="./logo.png" alt="LenysPilot Logo" class="sidebar-logo">
+                <span class="sidebar-title">LenysPilot</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" onclick="startNewSession()">
+                    <i data-lucide="message-square"></i>
+                    <span>New chat</span>
+                </button>
+                <button class="nav-item">
+                    <i data-lucide="image"></i>
+                    <span>Images</span>
+                </button>
+                <button class="nav-item">
+                    <i data-lucide="library"></i>
+                    <span>Library</span>
+                </button>
+                <button class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            <!-- Chat Interface -->
+            <section id="chat-section">
+                <!-- Claude-style Centered Greeting -->
+                <div id="empty-state">
+                    <img src="./logo.png" alt="Lenozen Logo" class="empty-logo">
+                    <h2>The Lenny Growth Assistant</h2>
+                </div>
+                
+                <div id="chat-history">
+                    <!-- Messages will appear here -->
+                </div>
+
+                <div class="chat-input-container">
+                    <form id="chat-form">
+                        <textarea id="chat-input" placeholder="Ask a question or request a Ship 30 essay..." rows="1" required></textarea>
+                        <button type="submit" id="send-button">
+                            <i data-lucide="arrow-up"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Artifact Viewer -->
+            <section id="artifact-section" class="hidden">
+                <header class="artifact-header">
+                    <h3>Artifact Viewer</h3>
+                    <button id="close-artifact" onclick="closeArtifact()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </header>
+                <div class="artifact-content">
+                    <iframe id="artifact-iframe" sandbox="allow-same-origin"></iframe>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
